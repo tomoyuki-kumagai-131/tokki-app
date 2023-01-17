@@ -89,19 +89,19 @@ export const Header: React.FC<HeaderProps> = ({ logout }) => (
 							</Box>
 						</MenuItem>
 						<Divider mb={3} />
-						<MenuGroup title="設定" color="black.600">
+						<MenuGroup title="Menu" color="black.600">
 							<Link href="#about">
-								<MenuItem pl="4" fontSize="sm" icon={<Sms fontSize="lg" />}>
+								<MenuItem pl="4" fontSize="sm">
 									About
 								</MenuItem>
 							</Link>
 							<Link href="#members">
-								<MenuItem pl="4" fontSize="sm" icon={<Key fontSize="lg" />}>
+								<MenuItem pl="4" fontSize="sm">
 									Members
 								</MenuItem>
 							</Link>
 							<Link href="#discography">
-								<MenuItem pl="4" fontSize="sm" icon={<Key fontSize="lg" />}>
+								<MenuItem pl="4" fontSize="sm">
 									Discography
 								</MenuItem>
 							</Link>
@@ -112,7 +112,7 @@ export const Header: React.FC<HeaderProps> = ({ logout }) => (
 							</MenuItem>
 						</MenuGroup> */}
 						<MenuGroup title="ヘルプ" paddingTop={2}>
-							<MenuItem pl="4" fontSize="sm" icon={<Message fontSize="lg" />}>
+							<MenuItem pl="4" fontSize="sm">
 								お問い合わせ
 							</MenuItem>
 						</MenuGroup>

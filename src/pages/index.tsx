@@ -4,6 +4,8 @@ import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import { Header } from '~/components/layouts/Layout/Header'
 import { Top } from '~/components/pages/Top'
+import { Footer } from '~/components/layouts/Layout/Footer'
+import { Box } from '@chakra-ui/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,7 +24,12 @@ export default function Home() {
 					throw new Error('Function not implemented.')
 				}}
 			/>
-			<Top />
+			<Box bg="gray.50" h="max-full">
+				<Top />
+				<Box pt={12}>
+					<Footer />
+				</Box>
+			</Box>
 		</>
 	)
 }
