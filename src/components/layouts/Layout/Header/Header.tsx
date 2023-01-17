@@ -10,25 +10,11 @@ import {
 	MenuGroup,
 	MenuItem,
 	MenuList,
-	Tab,
-	TabList,
-	TabPanel,
-	TabPanels,
-	Tabs,
 } from '@chakra-ui/react'
 import Link from 'next/link'
 
-import { AvatarImage } from '~/components/parts/AvatarImage'
 import { CollapsedMenuIcon } from '~/components/parts/CollapsedMenuIcon'
-import { Bell } from '~/components/parts/Icon/icons/linear/Bell'
-import { Document } from '~/components/parts/Icon/icons/linear/Document'
-import { Edit2 } from '~/components/parts/Icon/icons/linear/Edit2'
 import { Export } from '~/components/parts/Icon/icons/linear/Export'
-import { Key } from '~/components/parts/Icon/icons/linear/Key'
-import { Message } from '~/components/parts/Icon/icons/linear/Message'
-import { SearchNew } from '~/components/parts/Icon/icons/linear/SearchNew'
-import { SearchNormal } from '~/components/parts/Icon/icons/linear/SearchNormal'
-import { Sms } from '~/components/parts/Icon/icons/linear/Sms'
 import { Logo } from '~/components/parts/Logo'
 
 export type HeaderProps = {
@@ -131,10 +117,10 @@ export const Header: React.FC<HeaderProps> = ({ logout }) => (
 							ログアウト
 						</Box>
 					</MenuList>
-				</Menu>{' '}
-				<Button display={{ base: 'none', md: 'flex' }} ml={4}>
+				</Menu>
+				{/* <Button display={{ base: 'none', md: 'flex' }} ml={4}>
 					Add new
-				</Button>
+				</Button> */}
 			</Flex>
 		</Box>
 	</Flex>

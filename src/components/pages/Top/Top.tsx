@@ -1,10 +1,8 @@
-import { Box, Button, HStack, Image, Stack } from '@chakra-ui/react'
-import { Header } from '~/components/layouts/Layout/Header'
+import { Box } from '@chakra-ui/react'
 import { Contents } from '~/components/parts/Contents'
 import { HeadingTitle } from '~/components/parts/Heading/Heading'
 import { Hero } from '~/components/parts/Hero/Hero'
 import { MemberCard } from '~/components/parts/MemberCard'
-import { Swiper, SwiperSlide } from 'swiper/react'
 
 import SwiperCore, {
 	Navigation,
