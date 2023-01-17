@@ -1,0 +1,4 @@
+# components/chakra
+
+chakra uiのカスタムtheme　置き場
+chakraの組み込みコンポーネントのカスタムは基本的にthemeで行う
