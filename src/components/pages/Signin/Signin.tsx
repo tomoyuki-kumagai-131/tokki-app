@@ -18,11 +18,12 @@ import {
 } from 'react-hook-form'
 import { FormValues, SigninData } from '~/types/type'
 import { useSignin } from './Signin.hooks'
-import { IconAt, IconLock } from '@tabler/icons'
+import { IconAt, IconLock, IconMan } from '@tabler/icons'
 import { Header } from '~/components/layouts/Layout/Header'
 import Link from 'next/link'
 import { EyeSlash } from '~/components/parts/Icon/icons/linear/EyeSlash'
 import { Eye } from '~/components/parts/Icon/icons/linear/Eye'
+import { AvatarImage } from '~/components/parts/AvatarImage'
 
 type Props = {
 	onSubmit: SubmitHandler<SigninData>
@@ -73,6 +74,22 @@ export const Component: React.FC<Props> = ({
 							<Input
 								id="email"
 								{...register('email', {
+									required: true,
+								})}
+							/>
+						</InputGroup>
+					</Box>
+					<Box mt={4}>
+						<FormLabel>ユーザーネーム</FormLabel>
+						<InputGroup>
+							<InputLeftElement
+								color="gray.300"
+								pointerEvents="none"
+								children={<IconMan />}
+							/>
+							<Input
+								id="displayName"
+								{...register('displayName', {
 									required: true,
 								})}
 							/>

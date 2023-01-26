@@ -28,6 +28,8 @@ export type HeaderProps = {
 export const Header: React.FC<HeaderProps> = ({ logout }) => {
 	const { user, handleLogout } = useHeader()
 
+	console.log(user)
+
 	return (
 		<Box display="flex" alignItems="center" justifyContent="center">
 			<Flex
@@ -135,7 +137,7 @@ export const Header: React.FC<HeaderProps> = ({ logout }) => {
 											{/* <Box pr={1} as="span">
 									<Export transform="rotate(90deg)" fontSize="lg" />
 									</Box> */}
-											新規登録
+											ログイン
 										</Link>
 									)}
 								</Box>

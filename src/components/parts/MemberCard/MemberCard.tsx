@@ -14,12 +14,6 @@ import {
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Members } from './Members'
 
-// type Props = {
-// 	src: string
-// 	name: string
-// 	description: string
-// }
-
 export const MemberCard: React.FC = () => {
 	return (
 		<>

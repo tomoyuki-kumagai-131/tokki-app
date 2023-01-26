@@ -13,14 +13,6 @@ const firebaseConfig = {
 	messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGE_SENDER_ID,
 	appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 	measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
-
-	// apiKey: 'AIzaSyB_aW6s6_fxWZBmM_D54NnwUC9700It2JY',
-	// authDomain: 'tokki-app.firebaseapp.com',
-	// projectId: 'tokki-app',
-	// storageBucket: 'tokki-app.appspot.com',
-	// messagingSenderId: '117731301925',
-	// appId: '1:117731301925:web:0d13c493eac5ba41f73dcc',
-	// measurementId: 'G-SVZSLZ67GE',
 }
 
 if (!getApps().length) {

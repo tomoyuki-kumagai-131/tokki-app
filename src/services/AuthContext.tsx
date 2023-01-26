@@ -33,16 +33,16 @@ export const AuthProvider = ({ children }: AuthProps) => {
 
 	const isAvailableForViewing =
 		router.pathname === '/about' ||
-		// router.pathname === '/login' ||
+		router.pathname === '/' ||
 		router.pathname === '/signin'
 
-	// useEffect(() => {
-	// 	const authStateChanged = onAuthStateChanged(auth, async (user) => {
-	// 		setUser(user)
-	// 		!user && !isAvailableForViewing && (await router.push('/signin'))
-	// 	})
-	// 	return () => authStateChanged()
-	// }, [isAvailableForViewing, router])
+	useEffect(() => {
+		const authStateChanged = onAuthStateChanged(auth, async (user) => {
+			setUser(user)
+			!user && !isAvailableForViewing && (await router.push('/login'))
+		})
+		return () => authStateChanged()
+	}, [isAvailableForViewing, router])
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

@@ -11,7 +11,7 @@ import 'swiper/css'
 
 export const Hero: React.FC = () => {
 	return (
-		<Box>
+		<Box mt={4}>
 			<Box
 				mt={4}
 				mx={4}

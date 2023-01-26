@@ -24,7 +24,8 @@ export default function Home() {
 					throw new Error('Function not implemented.')
 				}}
 			/>
-			<Box bg="gray.50" h="max-full">
+			<Box>
+				{/* <Box bg="gray.50" h="max-full"> */}
 				<Top />
 				<Box pt={12}>
 					<Footer />
