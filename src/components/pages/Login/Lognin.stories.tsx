@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import { Component, Signin } from './Login'
+import { Component } from './Login'
 
 export default { component: Component } as ComponentMeta<typeof Component>
 export const Default: ComponentStoryObj<typeof Component> = {
