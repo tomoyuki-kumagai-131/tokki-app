@@ -80,22 +80,6 @@ export const Component: React.FC<Props> = ({
 						</InputGroup>
 					</Box>
 					<Box mt={4}>
-						<FormLabel>ユーザーネーム</FormLabel>
-						<InputGroup>
-							<InputLeftElement
-								color="gray.300"
-								pointerEvents="none"
-								children={<IconMan />}
-							/>
-							<Input
-								id="displayName"
-								{...register('displayName', {
-									required: true,
-								})}
-							/>
-						</InputGroup>
-					</Box>
-					<Box mt={4}>
 						<FormLabel>パスワード</FormLabel>
 						<InputGroup>
 							<InputLeftElement
