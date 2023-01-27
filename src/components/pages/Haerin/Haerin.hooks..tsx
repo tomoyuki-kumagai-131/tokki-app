@@ -45,11 +45,9 @@ export const useHaerin = () => {
 				createdAt: new Date(),
 			})
 			setIsLoading(false)
-			location.reload()
+			// location.reload()
 		} catch (e) {
 			alert('投稿に失敗しました。')
-		} finally {
-			setIsLoading(false)
 		}
 	}
 

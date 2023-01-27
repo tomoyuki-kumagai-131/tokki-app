@@ -28,8 +28,6 @@ export type HeaderProps = {
 export const Header: React.FC<HeaderProps> = ({ logout }) => {
 	const { user, handleLogout } = useHeader()
 
-	console.log(user)
-
 	return (
 		<Box display="flex" alignItems="center" justifyContent="center">
 			<Flex
