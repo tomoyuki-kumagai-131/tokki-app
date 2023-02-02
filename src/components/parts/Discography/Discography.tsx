@@ -63,7 +63,15 @@ export const Discography: React.FC = () => {
 									</ModalBody>
 
 									<ModalFooter>
-										<Button colorScheme="blue" mr={3} onClick={modal1.onClose}>
+										<Button
+											colorScheme="blue"
+											mr={3}
+											onClick={
+												item.modal === 'modal1'
+													? modal1.onClose
+													: modal2.onClose
+											}
+										>
 											<CloseButton />
 										</Button>
 									</ModalFooter>

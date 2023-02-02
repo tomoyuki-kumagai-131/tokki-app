@@ -10,7 +10,6 @@ import {
 	InputRightElement,
 } from '@chakra-ui/react'
 import {
-	Field,
 	FieldErrorsImpl,
 	SubmitHandler,
 	UseFormHandleSubmit,
@@ -40,8 +39,6 @@ export const Component: React.FC<Props> = ({
 	register,
 	handleSubmit,
 	handleShow,
-	errors,
-	isDirty,
 	isLoading,
 	isShowPassword,
 }) => (

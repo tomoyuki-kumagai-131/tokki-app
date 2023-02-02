@@ -132,7 +132,7 @@ export const Component: React.FC<Props> = ({
 export const Haerin = () => {
 	const { onSubmit, tweets, isLoading, user } = useHaerin()
 
-	const { register } = useForm({
+	const { register } = useForm<FieldValues>({
 		criteriaMode: 'all',
 		mode: 'onSubmit',
 	})
