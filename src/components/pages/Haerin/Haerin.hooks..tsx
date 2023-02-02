@@ -1,23 +1,13 @@
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import {
-	addDoc,
-	collection,
-	getDocs,
-	orderBy,
-	query,
-	setDoc,
-} from 'firebase/firestore'
+import { addDoc, collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { auth, db } from '~/firebase/client'
+import { SubmitHandler } from 'react-hook-form'
+import { db } from '~/firebase/client'
 import { UseAuthContext } from '~/services/AuthContext'
 import { FormValues, SigninData, TweetData } from '~/types/type'
 
 export const useHaerin = () => {
 	const { user } = UseAuthContext()
-
-	const router = useRouter()
 
 	const [isLoading, setIsLoading] = useState(false)
 

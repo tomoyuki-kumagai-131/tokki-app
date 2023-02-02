@@ -24,18 +24,15 @@ import { FaTrashAlt } from 'react-icons/fa'
 
 type Props = {
 	onSubmit: SubmitHandler<TweetData>
-	handleSubmit: UseFormHandleSubmit<FieldValues>
 	register: UseFormRegister<FieldValues>
 	tweets: TweetData[]
 	user: UserType | undefined
-	isDirty?: boolean
 	isLoading?: boolean
 }
 
 export const Component: React.FC<Props> = ({
 	onSubmit,
 	register,
-	handleSubmit,
 	tweets,
 	isLoading,
 	user,
@@ -59,7 +56,7 @@ export const Component: React.FC<Props> = ({
 					<Image src="/images/haerin1.webp" borderRadius="xl" />
 				</Box>
 				<Box position="absolute" pt={{ base: 20, sm: 32, md: 48 }}>
-					<form onSubmit={handleSubmit(onSubmit)}>
+					<form>
 						<InputGroup>
 							<InputLeftElement
 								pointerEvents="none"
@@ -135,7 +132,7 @@ export const Component: React.FC<Props> = ({
 export const Haerin = () => {
 	const { onSubmit, tweets, isLoading, user } = useHaerin()
 
-	const { register, handleSubmit } = useForm({
+	const { register } = useForm({
 		criteriaMode: 'all',
 		mode: 'onSubmit',
 	})
@@ -144,7 +141,6 @@ export const Haerin = () => {
 		<Component
 			onSubmit={onSubmit}
 			register={register}
-			handleSubmit={handleSubmit}
 			isLoading={isLoading}
 			user={user}
 			tweets={tweets}
