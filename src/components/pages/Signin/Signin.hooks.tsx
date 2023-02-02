@@ -26,12 +26,7 @@ export const useSignin = () => {
 	const onSubmit: SubmitHandler<SigninData> = async (data) => {
 		setIsLoading(true)
 		try {
-			await createUserWithEmailAndPassword(
-				auth,
-				data.email,
-				data.password,
-				// data.displayName,
-			)
+			await createUserWithEmailAndPassword(auth, data.email, data.password)
 			setIsLoading(false)
 			router.push('/')
 		} catch (e) {

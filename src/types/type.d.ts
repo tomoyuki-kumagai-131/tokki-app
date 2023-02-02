@@ -11,6 +11,9 @@ export type LoginData = {
 export type FormValues = {
 	email: readonly string
 	password: readonly string
+	// uid?: string
+	// tweet?: string
+	// createdAt?: string
 }
 export type TweetValues = {
 	user?: { uid: string }
@@ -19,7 +22,7 @@ export type TweetValues = {
 }
 
 export type TweetData = {
-	user?: { uid: string }
+	uid: string
 	tweet: string
 	createdAt: string
 }

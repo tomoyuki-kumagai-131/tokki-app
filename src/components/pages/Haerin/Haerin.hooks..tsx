@@ -15,16 +15,6 @@ import { UseAuthContext } from '~/services/AuthContext'
 import { FormValues, SigninData, TweetData } from '~/types/type'
 
 export const useHaerin = () => {
-	const {
-		register,
-		watch,
-		handleSubmit,
-		formState: { errors, isDirty },
-	} = useForm<FormValues>({
-		criteriaMode: 'all',
-		mode: 'onSubmit',
-	})
-
 	const { user } = UseAuthContext()
 
 	const router = useRouter()
@@ -45,7 +35,6 @@ export const useHaerin = () => {
 				createdAt: new Date(),
 			})
 			setIsLoading(false)
-			// location.reload()
 		} catch (e) {
 			alert('投稿に失敗しました。')
 		}
@@ -72,19 +61,12 @@ export const useHaerin = () => {
 		getTweets()
 	}, [])
 
-	// console.log(tweets[0].tweet)
-
 	return {
 		onSubmit,
-		register,
-		watch,
-		handleSubmit,
 		handleShow,
 		tweets,
-		isDirty,
 		isLoading,
 		isShowPassword,
 		user,
-		// errors,
 	}
 }

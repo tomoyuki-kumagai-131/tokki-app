@@ -4,7 +4,6 @@ import {
 	Button,
 	Card,
 	Flex,
-	FormLabel,
 	Image,
 	Input,
 	InputGroup,
@@ -13,23 +12,23 @@ import {
 import { Header } from '~/components/layouts/Layout/Header'
 import { useHaerin } from './Haerin.hooks.'
 import {
-	Field,
-	FieldErrorsImpl,
+	FieldValues,
 	SubmitHandler,
+	useForm,
 	UseFormHandleSubmit,
 	UseFormRegister,
 } from 'react-hook-form'
 import { FormValues, TweetData, TweetValues } from '~/types/type'
 import { UserType } from '~/services/AuthContext'
+import { FaTrashAlt } from 'react-icons/fa'
 
 type Props = {
 	onSubmit: SubmitHandler<TweetData>
-	handleSubmit: any
+	handleSubmit: UseFormHandleSubmit<TweetData>
 	handleShow: () => void
-	register: any
-	// tweets: TweetData[]
+	register: UseFormRegister<FieldValues>
+	tweets: TweetData[]
 	user: UserType | undefined
-	// errors: Partial<FieldErrorsImpl<TweetValues>>
 	isDirty?: boolean
 	isLoading?: boolean
 }
@@ -39,7 +38,7 @@ export const Component: React.FC<Props> = ({
 	register,
 	handleSubmit,
 	handleShow,
-	// tweets,
+	tweets,
 	isLoading,
 	user,
 }) => {
@@ -99,122 +98,35 @@ export const Component: React.FC<Props> = ({
 					mb={4}
 					py={3}
 					width={{ base: '100%', sm: '100%', md: '735px' }}
-					// height="1000px"
 					borderRadius={10}
 				>
 					{/* TweetList */}
 					<Box>
-						{/* {tweets.map((tweet) => {
+						{tweets.map((tweet) => {
 							return (
-								<> */}
-						<Box
-							bg="white"
-							border="none"
-							p={4}
-							mt={4}
-							mx={4}
-							borderRadius={12}
-							// key={tweet.tweet}
-						>
-							{/* <Box>{tweet.tweet}</Box> */}
-							<Box>お試しツイート</Box>
-							<Box display="flex" justifyContent="space-between">
-								<Flex pt={2} fontSize="xs">
-									{/* ID: {user?.uid.slice(0, 8)}... */}
-									ID: AAABBBCCCDDD
-								</Flex>
-								<Flex pt={2} fontSize="xs">
-									2023/01/01 00:00
-								</Flex>
-							</Box>
-						</Box>
-						<Box
-							bg="white"
-							border="none"
-							p={4}
-							mt={4}
-							mx={4}
-							borderRadius={12}
-							// key={tweet.tweet}
-						>
-							{/* <Box>{tweet.tweet}</Box> */}
-							<Box>ツイート</Box>
-							<Box display="flex" justifyContent="space-between">
-								<Flex pt={2} fontSize="xs">
-									{/* ID: {user?.uid.slice(0, 8)}... */}
-									ID: AAABBBCCCDDD
-								</Flex>
-								<Flex pt={2} fontSize="xs">
-									2023/01/01 00:00
-								</Flex>
-							</Box>
-						</Box>
-						<Box
-							bg="white"
-							border="none"
-							p={4}
-							mt={4}
-							mx={4}
-							borderRadius={12}
-							// key={tweet.tweet}
-						>
-							{/* <Box>{tweet.tweet}</Box> */}
-							<Box>Herin</Box>
-							<Box display="flex" justifyContent="space-between">
-								<Flex pt={2} fontSize="xs">
-									{/* ID: {user?.uid.slice(0, 8)}... */}
-									ID: AAABBBCCCDDD
-								</Flex>
-								<Flex pt={2} fontSize="xs">
-									2023/01/01 00:00
-								</Flex>
-							</Box>
-						</Box>
-						<Box
-							bg="white"
-							border="none"
-							p={4}
-							mt={4}
-							mx={4}
-							borderRadius={12}
-							// key={tweet.tweet}
-						>
-							{/* <Box>{tweet.tweet}</Box> */}
-							<Box>お試しツイート</Box>
-							<Box display="flex" justifyContent="space-between">
-								<Flex pt={2} fontSize="xs">
-									{/* ID: {user?.uid.slice(0, 8)}... */}
-									ID: AAABBBCCCDDD
-								</Flex>
-								<Flex pt={2} fontSize="xs">
-									2023/01/01 00:00
-								</Flex>
-							</Box>
-						</Box>
-						<Box
-							bg="white"
-							border="none"
-							p={4}
-							mt={4}
-							mx={4}
-							borderRadius={12}
-							// key={tweet.tweet}
-						>
-							{/* <Box>{tweet.tweet}</Box> */}
-							<Box>NewJeans</Box>
-							<Box display="flex" justifyContent="space-between">
-								<Flex pt={2} fontSize="xs">
-									{/* ID: {user?.uid.slice(0, 8)}... */}
-									ID: AAABBBCCCDDD
-								</Flex>
-								<Flex pt={2} fontSize="xs">
-									2023/01/01 00:00
-								</Flex>
-							</Box>
-						</Box>
-						{/* </>
+								<>
+									<Box
+										bg="white"
+										border="none"
+										p={4}
+										mt={4}
+										mx={4}
+										borderRadius={12}
+										key={tweet.tweet}
+									>
+										<Box>{tweet.tweet}</Box>
+										<Box ml={64} mr={4}>
+											{user?.uid === tweet?.uid && <FaTrashAlt />}
+										</Box>
+										<Box display="flex" justifyContent="space-between">
+											<Flex pt={2} fontSize="xs">
+												ID: {user?.uid.slice(0, 8)}...
+											</Flex>
+										</Box>
+									</Box>
+								</>
 							)
-						})} */}
+						})}
 					</Box>
 				</Card>
 			</Box>
@@ -223,16 +135,13 @@ export const Component: React.FC<Props> = ({
 }
 
 export const Haerin = () => {
-	const {
-		onSubmit,
-		register,
-		handleSubmit,
-		handleShow,
-		// tweets,
-		isLoading,
-		user,
-		// errors,
-	} = useHaerin()
+	const { onSubmit, handleShow, tweets, isLoading, user } = useHaerin()
+
+	const { register, handleSubmit } = useForm<FieldValues>({
+		criteriaMode: 'all',
+		mode: 'onSubmit',
+	})
+
 	return (
 		<Component
 			onSubmit={onSubmit}
@@ -241,8 +150,7 @@ export const Haerin = () => {
 			isLoading={isLoading}
 			handleShow={handleShow}
 			user={user}
-			// tweets={tweets}
-			// errors={errors}
+			tweets={tweets}
 		/>
 	)
 }

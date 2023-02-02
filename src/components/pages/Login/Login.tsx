@@ -94,9 +94,7 @@ export const Component: React.FC<Props> = ({
 								})}
 							/>
 							<InputRightElement width="4.5rem" onClick={handleShow}>
-								{/* <Button h="1.75rem" size="sm" onClick={handleShow}> */}
 								{isShowPassword ? <EyeSlash /> : <Eye />}
-								{/* </Button> */}
 							</InputRightElement>
 						</InputGroup>
 					</Box>
