@@ -5,6 +5,7 @@ import { UseAuthContext } from '~/services/AuthContext'
 export const useHeader = () => {
 	const { user } = UseAuthContext()
 	const router = useRouter()
+
 	const handleLogout = () => {
 		auth.signOut()
 		router.push('/signin')

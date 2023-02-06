@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { auth } from '~/firebase/client'
-import { FormValues, SigninData } from '~/types/type'
+import { FormValues, UserData } from '~/types/type'
 
 export const useLogin = () => {
 	const {
@@ -23,7 +23,7 @@ export const useLogin = () => {
 	const [isShowPassword, setIsShowPassword] = useState(false)
 
 	// 新規登録
-	const onSubmit: SubmitHandler<SigninData> = async (data) => {
+	const onSubmit: SubmitHandler<UserData> = async (data) => {
 		setIsLoading(true)
 		try {
 			await signInWithEmailAndPassword(auth, data.email, data.password)

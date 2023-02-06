@@ -18,7 +18,7 @@ import {
 	UseFormHandleSubmit,
 	UseFormRegister,
 } from 'react-hook-form'
-import { FormValues, TweetData, TweetValues } from '~/types/type'
+import { FormValues, TweetData } from '~/types/type'
 import { UserType } from '~/services/AuthContext'
 import { FaTrashAlt } from 'react-icons/fa'
 
