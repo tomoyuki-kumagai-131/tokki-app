@@ -41,8 +41,6 @@ export const Component: React.FC<Props> = ({
 	register,
 	handleSubmit,
 	handleShow,
-	errors,
-	isDirty,
 	isLoading,
 	isShowPassword,
 }) => (
