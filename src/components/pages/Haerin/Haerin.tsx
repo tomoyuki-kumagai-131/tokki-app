@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/no-children-prop */
 import {
 	Box,
@@ -18,13 +19,15 @@ import {
 	UseFormHandleSubmit,
 	UseFormRegister,
 } from 'react-hook-form'
-import { FormValues, TweetData } from '~/types/type'
+import { FormValues, TweetData, TweetValues } from '~/types/type'
 import { UserType } from '~/services/AuthContext'
 import { FaTrashAlt } from 'react-icons/fa'
 
 type Props = {
 	onSubmit: SubmitHandler<TweetData>
+	handleSubmit: UseFormHandleSubmit<TweetValues>
 	register: UseFormRegister<FieldValues>
+	deleteTweet: any
 	tweets: TweetData[]
 	user: UserType | undefined
 	isLoading?: boolean
@@ -33,6 +36,8 @@ type Props = {
 export const Component: React.FC<Props> = ({
 	onSubmit,
 	register,
+	handleSubmit,
+	deleteTweet,
 	tweets,
 	isLoading,
 	user,
@@ -56,7 +61,7 @@ export const Component: React.FC<Props> = ({
 					<Image src="/images/haerin1.webp" borderRadius="xl" />
 				</Box>
 				<Box position="absolute" pt={{ base: 20, sm: 32, md: 48 }}>
-					<form>
+					<form onSubmit={handleSubmit(onSubmit)}>
 						<InputGroup>
 							<InputLeftElement
 								pointerEvents="none"
@@ -111,7 +116,11 @@ export const Component: React.FC<Props> = ({
 									>
 										<Box>{tweet.tweet}</Box>
 										<Box ml={64} mr={4}>
-											{user?.uid === tweet?.uid && <FaTrashAlt />}
+											{user?.uid === tweet?.uid && (
+												<Box>
+													<FaTrashAlt />
+												</Box>
+											)}
 										</Box>
 										<Box display="flex" justifyContent="space-between">
 											<Flex pt={2} fontSize="xs">
@@ -130,9 +139,9 @@ export const Component: React.FC<Props> = ({
 }
 
 export const Haerin = () => {
-	const { onSubmit, tweets, isLoading, user } = useHaerin()
+	const { onSubmit, deleteTweet, tweets, isLoading, user } = useHaerin()
 
-	const { register } = useForm<FieldValues>({
+	const { register, handleSubmit } = useForm({
 		criteriaMode: 'all',
 		mode: 'onSubmit',
 	})
@@ -140,7 +149,9 @@ export const Haerin = () => {
 	return (
 		<Component
 			onSubmit={onSubmit}
+			deleteTweet={deleteTweet}
 			register={register}
+			handleSubmit={handleSubmit}
 			isLoading={isLoading}
 			user={user}
 			tweets={tweets}
