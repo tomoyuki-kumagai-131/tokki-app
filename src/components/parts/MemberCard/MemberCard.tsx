@@ -53,15 +53,13 @@ export const MemberCard: React.FC = () => {
 			</Box>
 			<Box display={{ base: 'none', md: 'flex' }}>
 				<Swiper
-					// centeredSlides={true}
-					slidesPerView={3} //一度に表示するスライドの数
-					spaceBetween={16}
+					centeredSlides={true}
+					slidesPerView={3.5} //一度に表示するスライドの数
 					pagination={{ clickable: true }}
 					navigation
 					loop={true}
-					autoplay={{ delay: 1500 }}
 					fadeEffect={{ crossFade: true }}
-					speed={2500}
+					speed={500}
 				>
 					{Members.map((image: any) => (
 						<SwiperSlide key="image.src">
