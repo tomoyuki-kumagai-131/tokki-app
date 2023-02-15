@@ -6,13 +6,14 @@ import {
 	getDocs,
 	orderBy,
 	query,
+	where,
 } from 'firebase/firestore'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import { db } from '~/firebase/client'
 import { UseAuthContext } from '~/services/AuthContext'
-import { FormValues, SigninData, TweetData } from '~/types/type'
+import { FormValues, TweetData } from '~/types/type'
 import firebase from 'firebase/app'
 
 export const useHaerin = () => {
@@ -28,13 +29,14 @@ export const useHaerin = () => {
 		const querySnapshot = await getDocs(
 			query(collection(db, 'haerin'), orderBy('createdAt', 'desc')),
 		)
-		console.log(querySnapshot)
 
 		const tweets = querySnapshot.docs.map((doc) => ({
+			id: doc.data().id,
 			uid: doc.data().uid,
 			tweet: doc.data().tweet,
 			createdAt: doc.data().createdAt,
 		}))
+		console.log(querySnapshot.docs)
 		setTweets(tweets)
 	}
 
@@ -43,6 +45,7 @@ export const useHaerin = () => {
 		setIsLoading(true)
 		try {
 			await addDoc(collection(db, 'haerin'), {
+				id: Math.random().toString(12).substring(2),
 				uid: user?.uid,
 				tweet: data.tweet,
 				createdAt: new Date(),
@@ -55,12 +58,15 @@ export const useHaerin = () => {
 	}
 	// つぶやき削除
 	const deleteTweet = async (id: string) => {
-		try {
-			await deleteDoc(doc(db, 'haerin', id))
-			alert('削除しました')
-		} catch (e) {
-			alert('削除に失敗しました')
-		}
+		const userCollectionRef = collection(db, 'haerin')
+		const q = query(userCollectionRef, where('id', '==', id))
+		const querySnapshot = await getDocs(q)
+		querySnapshot.forEach(async (document) => {
+			const documentRef = doc(db, 'haerin', document.id)
+			await deleteDoc(documentRef)
+			getTweets()
+		})
+		alert('削除しました')
 	}
 
 	const handleShow = () => {

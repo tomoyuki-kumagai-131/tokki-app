@@ -9,6 +9,7 @@ export type FormValues = {
 }
 
 export type TweetData = {
+	id: string
 	uid: string
 	tweet: string
 	createdAt: string

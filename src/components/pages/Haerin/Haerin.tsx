@@ -117,7 +117,7 @@ export const Component: React.FC<Props> = ({
 										<Box>{tweet.tweet}</Box>
 										<Box ml={64} mr={4}>
 											{user?.uid === tweet?.uid && (
-												<Box>
+												<Box onClick={() => deleteTweet(tweet.id)}>
 													<FaTrashAlt />
 												</Box>
 											)}
