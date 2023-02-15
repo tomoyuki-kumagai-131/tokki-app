@@ -58,7 +58,11 @@ export const Component: React.FC<Props> = ({
 				borderRadius="xl"
 			>
 				<Box opacity={20} p={{ base: 4 }}>
-					<Image src="/images/haerin1.webp" borderRadius="xl" />
+					<Image
+						h={{ base: 200, md: 300 }}
+						src="/images/haerin1.webp"
+						borderRadius="xl"
+					/>
 				</Box>
 			</Box>
 			<Box
