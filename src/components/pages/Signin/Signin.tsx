@@ -16,7 +16,7 @@ import {
 	UseFormHandleSubmit,
 	UseFormRegister,
 } from 'react-hook-form'
-import { FormValues, SigninData } from '~/types/type'
+import { FormValues, UserData } from '~/types/type'
 import { useSignin } from './Signin.hooks'
 import { IconAt, IconLock, IconMan } from '@tabler/icons'
 import { Header } from '~/components/layouts/Layout/Header'
@@ -26,7 +26,7 @@ import { Eye } from '~/components/parts/Icon/icons/linear/Eye'
 import { AvatarImage } from '~/components/parts/AvatarImage'
 
 type Props = {
-	onSubmit: SubmitHandler<SigninData>
+	onSubmit: SubmitHandler<UserData>
 	handleSubmit: UseFormHandleSubmit<FormValues>
 	handleShow: () => void
 	register: UseFormRegister<FormValues>
