@@ -46,7 +46,6 @@ export const Component: React.FC<Props> = ({
 
 	return (
 		<Box>
-			<Header logout={handleLogout} />
 			<Box
 				textAlign="center"
 				display="flex"

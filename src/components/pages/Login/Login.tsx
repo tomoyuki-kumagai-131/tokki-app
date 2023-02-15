@@ -43,11 +43,6 @@ export const Component: React.FC<Props> = ({
 	isShowPassword,
 }) => (
 	<>
-		<Header
-			logout={function (): void {
-				throw new Error('Function not implemented.')
-			}}
-		/>
 		<Box p={4} display="flex" justifyContent="center" alignItems="center">
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Card
