@@ -16,6 +16,7 @@
     "@chakra-ui/storybook-addon": "^4.0.16",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@hookform/resolvers": "^2.9.11",
     "@next/font": "13.1.2",
     "@tabler/icons": "^1.119.0",
     "@types/node": "18.11.18",
@@ -33,7 +34,8 @@
     "react-icons": "^4.7.1",
     "react-responsive-carousel": "^3.2.23",
     "swiper": "^8.4.5",
-    "typescript": "4.9.4"
+    "typescript": "4.9.4",
+    "zod": "^3.20.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",

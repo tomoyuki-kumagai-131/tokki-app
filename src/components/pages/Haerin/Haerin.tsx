@@ -12,22 +12,16 @@ import {
 } from '@chakra-ui/react'
 import { Header } from '~/components/layouts/Layout/Header'
 import { useHaerin } from './Haerin.hooks.'
-import {
-	FieldValues,
-	SubmitHandler,
-	useForm,
-	UseFormHandleSubmit,
-	UseFormRegister,
-} from 'react-hook-form'
-import { FormValues, TweetData, TweetValues } from '~/types/type'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { TweetData } from '~/types/type'
 import { UserType } from '~/services/AuthContext'
 import { FaTrashAlt } from 'react-icons/fa'
+import { schema, TweetInputSchema } from '~/varidations/schema'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 type Props = {
-	onSubmit: SubmitHandler<TweetData>
-	handleSubmit: UseFormHandleSubmit<TweetValues>
-	register: UseFormRegister<FieldValues>
-	deleteTweet: any
+	onSubmit: SubmitHandler<TweetInputSchema>
+	deleteTweet: (id: string) => void
 	tweets: TweetData[]
 	user: UserType | undefined
 	isLoading?: boolean
@@ -35,13 +29,19 @@ type Props = {
 
 export const Component: React.FC<Props> = ({
 	onSubmit,
-	register,
-	handleSubmit,
 	deleteTweet,
 	tweets,
 	isLoading,
 	user,
 }) => {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<TweetInputSchema>({
+		resolver: zodResolver(schema),
+	})
+
 	return (
 		<Box>
 			<Header
@@ -60,38 +60,49 @@ export const Component: React.FC<Props> = ({
 				<Box opacity={20} p={{ base: 4 }}>
 					<Image src="/images/haerin1.webp" borderRadius="xl" />
 				</Box>
-				<Box position="absolute" pt={{ base: 20, sm: 32, md: 48 }}>
-					<form onSubmit={handleSubmit(onSubmit)}>
-						<InputGroup>
-							<InputLeftElement
-								pointerEvents="none"
-								color="gray.300"
-								children={<Box>🐰</Box>}
-							/>
-							<Input
-								id="text"
-								{...register('tweet', {
-									required: true,
-								})}
-								bg="white"
-							/>
-						</InputGroup>
-						<Box mb={8} mt={8} textAlign="center">
-							<Button
-								isLoading={isLoading}
-								type="submit"
-								bg="pink.200"
-								color="white"
-							>
-								Tweet
-							</Button>
+			</Box>
+			<Box
+				textAlign="center"
+				display="flex"
+				justifyItems="center"
+				justifyContent="center"
+				mt={6}
+			>
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<InputGroup>
+						<InputLeftElement
+							pointerEvents="none"
+							color="gray.300"
+							children={<Box>🐰</Box>}
+						/>
+						<Input
+							id="text"
+							{...register('tweet', {
+								required: true,
+							})}
+							bg="white"
+						/>
+					</InputGroup>
+					{errors.tweet?.message && (
+						<Box color="red.600" fontWeight="bold">
+							{errors?.tweet.message}
 						</Box>
-					</form>
-				</Box>
+					)}
+					<Box mb={8} mt={8} textAlign="center">
+						<Button
+							isLoading={isLoading}
+							type="submit"
+							bg="pink.200"
+							color="white"
+						>
+							Tweet
+						</Button>
+					</Box>
+				</form>
 			</Box>
 			<Box display="flex" justifyContent="center">
 				<Card
-					maxW="7xl"
+					maxW="md"
 					bg="pink.50"
 					mt={4}
 					mx={4}
@@ -115,7 +126,7 @@ export const Component: React.FC<Props> = ({
 										key={tweet.tweet}
 									>
 										<Box>{tweet.tweet}</Box>
-										<Box ml={64} mr={4}>
+										<Box>
 											{user?.uid === tweet?.uid && (
 												<Box onClick={() => deleteTweet(tweet.id)}>
 													<FaTrashAlt />
@@ -125,6 +136,9 @@ export const Component: React.FC<Props> = ({
 										<Box display="flex" justifyContent="space-between">
 											<Flex pt={2} fontSize="xs">
 												ID: {user?.uid.slice(0, 8)}...
+											</Flex>
+											<Flex pt={2} fontSize="xs">
+												{tweet.createdAt}
 											</Flex>
 										</Box>
 									</Box>
@@ -141,17 +155,10 @@ export const Component: React.FC<Props> = ({
 export const Haerin = () => {
 	const { onSubmit, deleteTweet, tweets, isLoading, user } = useHaerin()
 
-	const { register, handleSubmit } = useForm({
-		criteriaMode: 'all',
-		mode: 'onSubmit',
-	})
-
 	return (
 		<Component
 			onSubmit={onSubmit}
 			deleteTweet={deleteTweet}
-			register={register}
-			handleSubmit={handleSubmit}
 			isLoading={isLoading}
 			user={user}
 			tweets={tweets}
