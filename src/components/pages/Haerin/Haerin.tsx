@@ -18,6 +18,7 @@ import { UserType } from '~/services/AuthContext'
 import { FaTrashAlt } from 'react-icons/fa'
 import { schema, TweetInputSchema } from '~/varidations/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useHeader } from '~/components/layouts/Layout/Header/Header.hooks'
 
 type Props = {
 	onSubmit: SubmitHandler<TweetInputSchema>
@@ -41,14 +42,11 @@ export const Component: React.FC<Props> = ({
 	} = useForm<TweetInputSchema>({
 		resolver: zodResolver(schema),
 	})
+	const { handleLogout } = useHeader()
 
 	return (
 		<Box>
-			<Header
-				logout={function (): void {
-					throw new Error('Function not implemented.')
-				}}
-			/>
+			<Header logout={handleLogout} />
 			<Box
 				textAlign="center"
 				display="flex"

@@ -1,10 +1,8 @@
 import {
 	Box,
-	Button,
 	Divider,
 	Flex,
 	IconButton,
-	Image,
 	Menu,
 	MenuButton,
 	MenuGroup,
@@ -12,20 +10,12 @@ import {
 	MenuList,
 } from '@chakra-ui/react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 import { CollapsedMenuIcon } from '~/components/parts/CollapsedMenuIcon'
-import { Export } from '~/components/parts/Icon/icons/linear/Export'
 import { Logo } from '~/components/parts/Logo'
-import { auth } from '~/firebase/client'
-import { UseAuthContext } from '~/services/AuthContext'
 import { useHeader } from './Header.hooks'
 
-export type HeaderProps = {
-	logout: () => void
-}
-
-export const Header: React.FC<HeaderProps> = ({ logout }) => {
+export const Header: React.FC = () => {
 	const { user, handleLogout } = useHeader()
 
 	return (
