@@ -19,31 +19,18 @@ import { FaTrashAlt } from 'react-icons/fa'
 import { schema, TweetInputSchema } from '~/varidations/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHeader } from '~/components/layouts/Layout/Header/Header.hooks'
+import { TweetInput } from '~/components/parts/TweetInput'
+import { useEffect } from 'react'
 
 type Props = {
-	onSubmit: SubmitHandler<TweetInputSchema>
+	getTweets: any
 	deleteTweet: (id: string) => void
 	tweets: TweetData[]
 	user: UserType | undefined
 	isLoading?: boolean
 }
 
-export const Component: React.FC<Props> = ({
-	onSubmit,
-	deleteTweet,
-	tweets,
-	isLoading,
-	user,
-}) => {
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<TweetInputSchema>({
-		resolver: zodResolver(schema),
-	})
-	const { handleLogout } = useHeader()
-
+export const Component: React.FC<Props> = ({ deleteTweet, tweets, user }) => {
 	return (
 		<Box>
 			<Box
@@ -56,51 +43,13 @@ export const Component: React.FC<Props> = ({
 			>
 				<Box opacity={20} p={{ base: 4 }}>
 					<Image
-						h={{ base: 200, md: 300 }}
+						h={{ base: 234, md: 300 }}
 						src="/images/haerin1.webp"
 						borderRadius="xl"
 					/>
 				</Box>
 			</Box>
-			<Box
-				textAlign="center"
-				display="flex"
-				justifyItems="center"
-				justifyContent="center"
-				mt={6}
-			>
-				<form onSubmit={handleSubmit(onSubmit)}>
-					<InputGroup>
-						<InputLeftElement
-							pointerEvents="none"
-							color="gray.300"
-							children={<Box>🐰</Box>}
-						/>
-						<Input
-							id="text"
-							{...register('tweet', {
-								required: true,
-							})}
-							bg="white"
-						/>
-					</InputGroup>
-					{errors.tweet?.message && (
-						<Box color="red.600" fontWeight="bold">
-							{errors?.tweet.message}
-						</Box>
-					)}
-					<Box mb={8} mt={8} textAlign="center">
-						<Button
-							isLoading={isLoading}
-							type="submit"
-							bg="pink.200"
-							color="white"
-						>
-							Tweet
-						</Button>
-					</Box>
-				</form>
-			</Box>
+			<TweetInput />
 			<Box display="flex" justifyContent="center">
 				<Card
 					maxW="md"
@@ -111,8 +60,8 @@ export const Component: React.FC<Props> = ({
 					py={3}
 					width={{ base: '100%', sm: '100%', md: '735px' }}
 					borderRadius={10}
+					boxShadow="md"
 				>
-					{/* TweetList */}
 					<Box>
 						{tweets.map((tweet) => {
 							return (
@@ -154,11 +103,13 @@ export const Component: React.FC<Props> = ({
 }
 
 export const Haerin = () => {
-	const { onSubmit, deleteTweet, tweets, isLoading, user } = useHaerin()
+	const { deleteTweet, tweets, isLoading, user, getTweets } = useHaerin()
+
+	const { reset } = useForm()
 
 	return (
 		<Component
-			onSubmit={onSubmit}
+			getTweets={getTweets}
 			deleteTweet={deleteTweet}
 			isLoading={isLoading}
 			user={user}

@@ -10,7 +10,7 @@ import {
 } from 'firebase/firestore'
 
 import { useEffect, useState } from 'react'
-import { SubmitHandler } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { db } from '~/firebase/client'
 import { UseAuthContext } from '~/services/AuthContext'
 import { TweetData } from '~/types/type'
@@ -43,7 +43,6 @@ export const useHaerin = () => {
 	// つぶやき投稿（add)
 	const onSubmit: SubmitHandler<TweetInputSchema> = async (data) => {
 		setIsLoading(true)
-
 		try {
 			await addDoc(collection(db, 'haerin'), {
 				id: Math.random().toString(12).substring(2),
@@ -51,10 +50,11 @@ export const useHaerin = () => {
 				tweet: data.tweet,
 				createdAt: new Date(),
 			})
-			setIsLoading(false)
 			getTweets()
 		} catch (e) {
 			alert('投稿に失敗しました。')
+		} finally {
+			setIsLoading(false)
 		}
 	}
 	// つぶやき削除 (delete)
@@ -82,6 +82,7 @@ export const useHaerin = () => {
 		onSubmit,
 		handleShow,
 		deleteTweet,
+		getTweets,
 		tweets,
 		isLoading,
 		isShowPassword,

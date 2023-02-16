@@ -18,12 +18,6 @@ export default function Home() {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-
-			<Header
-				logout={function (): void {
-					throw new Error('Function not implemented.')
-				}}
-			/>
 			<Box>
 				{/* <Box bg="gray.50" h="max-full"> */}
 				<Top />
