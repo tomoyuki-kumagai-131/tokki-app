@@ -69,7 +69,7 @@ export const Header: React.FC = () => {
 								<MenuItem mt={-2}>
 									<Box mt={2} mb={3} ml={4}>
 										<Box color="black.900" mt={2} fontWeight={600}>
-											Tokki
+											<Link href="/">Tokki</Link>
 										</Box>
 										<Box fontSize="2xs" color="black.400">
 											{/* ID: 123456789 */}
@@ -78,7 +78,7 @@ export const Header: React.FC = () => {
 								</MenuItem>
 								<Divider mb={3} />
 								<MenuGroup title="Menu" color="black.600">
-									<Link href="#about">
+									<Link href="/#about">
 										<MenuItem pl="4" fontSize="sm">
 											About
 										</MenuItem>
@@ -88,7 +88,7 @@ export const Header: React.FC = () => {
 											Haerin
 										</MenuItem>
 									</Link>
-									<Link href="#discography">
+									<Link href="/#discography">
 										<MenuItem pl="4" fontSize="sm">
 											Discography
 										</MenuItem>
