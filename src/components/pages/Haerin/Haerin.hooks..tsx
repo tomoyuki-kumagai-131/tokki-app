@@ -11,6 +11,7 @@ import {
 
 import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { set } from 'zod'
 import { db } from '~/firebase/client'
 import { UseAuthContext } from '~/services/AuthContext'
 import { TweetData } from '~/types/type'
@@ -25,19 +26,28 @@ export const useHaerin = () => {
 
 	const [tweets, setTweets] = useState<TweetData[]>([])
 
-	const getTweets = async () => {
-		const querySnapshot = await getDocs(
-			query(collection(db, 'haerin'), orderBy('createdAt', 'desc')),
-		)
+	const [clear, setClear] = useState('')
 
-		const tweets = querySnapshot.docs.map((doc) => ({
-			id: doc.data().id,
-			uid: doc.data().uid,
-			tweet: doc.data().tweet,
-			createdAt: doc.data().createdAt.toDate().toLocaleString(),
-		}))
-		console.log(tweets)
-		setTweets(tweets)
+	const getTweets = async () => {
+		setIsLoading(true)
+		try {
+			const querySnapshot = await getDocs(
+				query(collection(db, 'haerin'), orderBy('createdAt', 'desc')),
+			)
+
+			const tweets = querySnapshot.docs.map((doc) => ({
+				id: doc.data().id,
+				uid: doc.data().uid,
+				tweet: doc.data().tweet,
+				createdAt: doc.data().createdAt.toDate().toLocaleString(),
+			}))
+			console.log(tweets)
+			setTweets(tweets)
+		} catch (e) {
+			alert('つぶやきの取得に失敗しました。')
+		} finally {
+			setIsLoading(false)
+		}
 	}
 
 	// つぶやき投稿（add)
@@ -50,6 +60,7 @@ export const useHaerin = () => {
 				tweet: data.tweet,
 				createdAt: new Date(),
 			})
+			setClear('')
 			getTweets()
 		} catch (e) {
 			alert('投稿に失敗しました。')
@@ -83,6 +94,8 @@ export const useHaerin = () => {
 		handleShow,
 		deleteTweet,
 		getTweets,
+		clear,
+		setClear,
 		tweets,
 		isLoading,
 		isShowPassword,
