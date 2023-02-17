@@ -26,8 +26,6 @@ export const useHaerin = () => {
 
 	const [tweets, setTweets] = useState<TweetData[]>([])
 
-	const [clear, setClear] = useState('')
-
 	const getTweets = async () => {
 		setIsLoading(true)
 		try {
@@ -41,7 +39,6 @@ export const useHaerin = () => {
 				tweet: doc.data().tweet,
 				createdAt: doc.data().createdAt.toDate().toLocaleString(),
 			}))
-			console.log(tweets)
 			setTweets(tweets)
 		} catch (e) {
 			alert('つぶやきの取得に失敗しました。')
@@ -60,7 +57,6 @@ export const useHaerin = () => {
 				tweet: data.tweet,
 				createdAt: new Date(),
 			})
-			setClear('')
 			getTweets()
 		} catch (e) {
 			alert('投稿に失敗しました。')
@@ -94,8 +90,6 @@ export const useHaerin = () => {
 		handleShow,
 		deleteTweet,
 		getTweets,
-		clear,
-		setClear,
 		tweets,
 		isLoading,
 		isShowPassword,

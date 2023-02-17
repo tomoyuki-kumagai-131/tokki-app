@@ -19,10 +19,9 @@ import { Star } from '../Icon/icons/bold/Star'
 type Props = {
 	onSubmit: SubmitHandler<TweetInputSchema>
 	isLoading?: boolean
-	setClear: any
 }
 
-export const Component = ({ onSubmit, isLoading, setClear }: Props) => {
+export const Component = ({ onSubmit, isLoading }: Props) => {
 	const {
 		register,
 		handleSubmit,
@@ -89,7 +88,7 @@ export const Component = ({ onSubmit, isLoading, setClear }: Props) => {
 								bg="pink.200"
 								color="white"
 								borderRadius={20}
-								onClick={() => reset()}
+								// onClick={() => reset()}
 							>
 								Tweet
 							</Button>
@@ -102,9 +101,7 @@ export const Component = ({ onSubmit, isLoading, setClear }: Props) => {
 }
 
 export const TweetInput = () => {
-	const { onSubmit, isLoading, setClear } = useHaerin()
+	const { onSubmit, isLoading } = useHaerin()
 
-	return (
-		<Component onSubmit={onSubmit} isLoading={isLoading} setClear={setClear} />
-	)
+	return <Component onSubmit={onSubmit} isLoading={isLoading} />
 }

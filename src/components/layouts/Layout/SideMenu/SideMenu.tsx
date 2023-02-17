@@ -14,15 +14,17 @@ import {
 import { FiHome, FiTrendingUp, FiSettings } from 'react-icons/fi'
 import { IconType } from 'react-icons'
 import { ReactText } from 'react'
+import NextLink from 'next/link'
 
 interface LinkItemProps {
 	name: string
 	icon: IconType
+	href: string
 }
 const LinkItems: Array<LinkItemProps> = [
-	{ name: 'Home', icon: FiHome },
-	{ name: 'About', icon: FiTrendingUp },
-	{ name: 'Discography', icon: FiSettings },
+	{ name: 'Home', icon: FiHome, href: '/' },
+	{ name: 'About', icon: FiTrendingUp, href: '/#about' },
+	{ name: 'Discography', icon: FiSettings, href: '/#discography' },
 ]
 
 export default function SideMenu({ children }: { children: ReactNode }) {
@@ -72,11 +74,14 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 			pos="fixed"
 			h="full"
 			{...rest}
+			textDecoration="none"
 		>
 			{LinkItems.map((link) => (
-				<NavItem key={link.name} icon={link.icon}>
-					{link.name}
-				</NavItem>
+				<Link as={NextLink} href={link.href} key={link.name} border="none">
+					<NavItem icon={link.icon} key={link.name} textDecoration="none">
+						{link.name}
+					</NavItem>
+				</Link>
 			))}
 		</Box>
 	)
@@ -90,7 +95,6 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
 	return (
 		<Link
 			// display={{ base: 'none' }}
-			href="#"
 			style={{ textDecoration: 'none' }}
 			_focus={{ boxShadow: 'none' }}
 		>
