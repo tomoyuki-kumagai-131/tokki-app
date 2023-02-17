@@ -76,8 +76,11 @@ export const useHaerin = () => {
 			}))
 			setTweets([...tweets, ...tweets])
 			console.log(tweets)
-
 			setLastDoc(querySnapshot.docs[querySnapshot.docs.length - 1])
+			if (tweets.length == 0) {
+				alert('これ以上つぶやきがありません。')
+				getTweets()
+			}
 		} catch (e) {
 			alert('つぶやきの取得に失敗しました。')
 		} finally {
@@ -97,7 +100,7 @@ export const useHaerin = () => {
 			})
 			getTweets()
 		} catch (e) {
-			alert('投稿に失敗しました。')
+			console.log(e)
 		} finally {
 			setIsLoading(false)
 		}

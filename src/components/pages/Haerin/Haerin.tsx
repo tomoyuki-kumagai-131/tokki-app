@@ -22,7 +22,7 @@ import { schema, TweetInputSchema } from '~/varidations/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHeader } from '~/components/layouts/Layout/Header/Header.hooks'
 import { TweetInput } from '~/components/parts/TweetInput'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import SideMenu from '~/components/layouts/Layout/SideMenu/SideMenu'
 
 type Props = {
@@ -132,6 +132,30 @@ export const Component: React.FC<Props> = ({
 export const Haerin = () => {
 	const { deleteTweet, tweets, isLoading, user, getTweets, loadMore } =
 		useHaerin()
+	const [isBottom, setIsBottom] = useState(false)
+	const [loadingMore, setLoadingMore] = useState(false)
+
+	useEffect(() => {
+		const handleScroll = () => {
+			const scrollTop = document.documentElement.scrollTop
+			const clientHeight = document.documentElement.clientHeight
+			const scrollHeight = document.documentElement.scrollHeight
+			if (scrollTop + clientHeight >= scrollHeight - 100 && !loadingMore) {
+				setLoadingMore(true)
+			}
+			if (scrollTop + clientHeight === scrollHeight) {
+				setIsBottom(true)
+			} else {
+				setIsBottom(false)
+			}
+		}
+
+		window.addEventListener('scroll', handleScroll)
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll)
+		}
+	}, [])
 
 	return (
 		<Component
