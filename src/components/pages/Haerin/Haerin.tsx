@@ -31,6 +31,7 @@ type Props = {
 	user: UserType | undefined
 	isLoading?: boolean
 	loadMore: () => void
+	reset: () => void
 }
 
 export const Component: React.FC<Props> = ({
@@ -38,6 +39,7 @@ export const Component: React.FC<Props> = ({
 	tweets,
 	user,
 	loadMore,
+	reset,
 	isLoading,
 }) => {
 	return (
@@ -130,32 +132,41 @@ export const Component: React.FC<Props> = ({
 }
 
 export const Haerin = () => {
-	const { deleteTweet, tweets, isLoading, user, getTweets, loadMore } =
-		useHaerin()
-	const [isBottom, setIsBottom] = useState(false)
-	const [loadingMore, setLoadingMore] = useState(false)
+	const {
+		deleteTweet,
+		tweets,
+		isLoading,
+		setIsLoading,
+		user,
+		getTweets,
+		loadMore,
+	} = useHaerin()
+	// const [isBottom, setIsBottom] = useState(false)
+	// const [loadingMore, setLoadingMore] = useState(false)
 
-	useEffect(() => {
-		const handleScroll = () => {
-			const scrollTop = document.documentElement.scrollTop
-			const clientHeight = document.documentElement.clientHeight
-			const scrollHeight = document.documentElement.scrollHeight
-			if (scrollTop + clientHeight >= scrollHeight - 100 && !loadingMore) {
-				setLoadingMore(true)
-			}
-			if (scrollTop + clientHeight === scrollHeight) {
-				setIsBottom(true)
-			} else {
-				setIsBottom(false)
-			}
-		}
+	// useEffect(() => {
+	// 	const handleScroll = () => {
+	// 		const scrollTop = document.documentElement.scrollTop
+	// 		const clientHeight = document.documentElement.clientHeight
+	// 		const scrollHeight = document.documentElement.scrollHeight
+	// 		if (scrollTop + clientHeight >= scrollHeight - 100 && !loadingMore) {
+	// 			setLoadingMore(true)
+	// 		}
+	// 		if (scrollTop + clientHeight === scrollHeight) {
+	// 			setIsBottom(true)
+	// 		} else {
+	// 			setIsBottom(false)
+	// 		}
+	// 	}
 
-		window.addEventListener('scroll', handleScroll)
+	// 	window.addEventListener('scroll', handleScroll)
 
-		return () => {
-			window.removeEventListener('scroll', handleScroll)
-		}
-	}, [])
+	// 	return () => {
+	// 		window.removeEventListener('scroll', handleScroll)
+	// 	}
+	// }, [loadingMore])
+
+	const { reset } = useForm()
 
 	return (
 		<Component
@@ -164,6 +175,7 @@ export const Haerin = () => {
 			user={user}
 			tweets={tweets}
 			loadMore={loadMore}
+			reset={reset}
 		/>
 	)
 }

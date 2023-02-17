@@ -1,3 +1,4 @@
+import { useToast } from '@chakra-ui/react'
 import {
 	addDoc,
 	collection,
@@ -11,8 +12,9 @@ import {
 	startAfter,
 	where,
 } from 'firebase/firestore'
+import Router from 'next/router'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { set } from 'zod'
 import { db } from '~/firebase/client'
@@ -31,6 +33,11 @@ export const useHaerin = () => {
 
 	const [lastDoc, setLastDoc] = useState<DocumentData | null>(null)
 
+	const toast = useToast()
+
+	const { reset } = useForm()
+
+	// ツイートを5件取得する
 	const getTweets = useCallback(async () => {
 		setIsLoading(true)
 		const myCollectionRef = collection(db, 'haerin')
@@ -74,9 +81,12 @@ export const useHaerin = () => {
 				tweet: doc.data().tweet,
 				createdAt: doc.data().createdAt.toDate().toLocaleString(),
 			}))
-			setTweets([...tweets, ...tweets])
-			console.log(tweets)
+			setTimeout(() => {
+				setTweets([...tweets, ...tweets])
+			}, 1200)
+
 			setLastDoc(querySnapshot.docs[querySnapshot.docs.length - 1])
+
 			if (tweets.length == 0) {
 				alert('これ以上つぶやきがありません。')
 				getTweets()
@@ -86,25 +96,38 @@ export const useHaerin = () => {
 		} finally {
 			setIsLoading(false)
 		}
-	}, [lastDoc])
+	}, [getTweets, lastDoc])
 
 	// つぶやき投稿（add)
-	const onSubmit: SubmitHandler<TweetInputSchema> = async (data) => {
-		setIsLoading(true)
-		try {
-			await addDoc(collection(db, 'haerin'), {
-				id: Math.random().toString(12).substring(2),
-				uid: user?.uid,
-				tweet: data.tweet,
-				createdAt: new Date(),
-			})
-			getTweets()
-		} catch (e) {
-			console.log(e)
-		} finally {
-			setIsLoading(false)
-		}
-	}
+	const onSubmit: SubmitHandler<TweetInputSchema> = useCallback(
+		async (data) => {
+			setIsLoading(true)
+			try {
+				await addDoc(collection(db, 'haerin'), {
+					id: Math.random().toString(12).substring(2),
+					uid: user?.uid,
+					tweet: data.tweet,
+					createdAt: new Date(),
+				})
+				toast({
+					title: ' 投稿しました',
+					description: "We've created your tweet.",
+					status: 'success',
+					duration: 9000,
+					position: 'top',
+					isClosable: true,
+				})
+				getTweets()
+				// inputRef.current!.value = ''
+			} catch (e) {
+				console.log(e)
+			} finally {
+				setIsLoading(false)
+			}
+		},
+		[getTweets, toast, user?.uid],
+	)
+
 	// つぶやき削除 (delete)
 	const deleteTweet = async (id: string) => {
 		const userCollectionRef = collection(db, 'haerin')
@@ -124,7 +147,7 @@ export const useHaerin = () => {
 
 	useEffect(() => {
 		getTweets()
-	}, [getTweets])
+	}, [getTweets, user])
 
 	return {
 		onSubmit,
@@ -134,6 +157,7 @@ export const useHaerin = () => {
 		loadMore,
 		tweets,
 		isLoading,
+		setIsLoading,
 		isShowPassword,
 		user,
 	}

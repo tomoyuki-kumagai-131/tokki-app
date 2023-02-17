@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { IconClearAll, IconClearFormatting } from '@tabler/icons'
+import { MutableRefObject, useRef } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useHaerin } from '~/components/pages/Haerin/Haerin.hooks.'
 import { schema, TweetInputSchema } from '~/varidations/schema'
@@ -19,9 +20,10 @@ import { Star } from '../Icon/icons/bold/Star'
 type Props = {
 	onSubmit: SubmitHandler<TweetInputSchema>
 	isLoading?: boolean
+	inputRef: MutableRefObject<HTMLInputElement | null>
 }
 
-export const Component = ({ onSubmit, isLoading }: Props) => {
+export const Component = ({ onSubmit, isLoading, inputRef }: Props) => {
 	const {
 		register,
 		handleSubmit,
@@ -58,6 +60,7 @@ export const Component = ({ onSubmit, isLoading }: Props) => {
 										required: true,
 									})}
 									bg="white"
+									// ref={inputRef}
 								/>
 								<InputRightElement
 									cursor="pointer"
@@ -102,5 +105,9 @@ export const Component = ({ onSubmit, isLoading }: Props) => {
 export const TweetInput = () => {
 	const { onSubmit, isLoading } = useHaerin()
 
-	return <Component onSubmit={onSubmit} isLoading={isLoading} />
+	const inputRef = useRef(null)
+
+	return (
+		<Component onSubmit={onSubmit} isLoading={isLoading} inputRef={inputRef} />
+	)
 }
