@@ -88,7 +88,6 @@ export const Component = ({ onSubmit, isLoading }: Props) => {
 								bg="pink.200"
 								color="white"
 								borderRadius={20}
-								// onClick={() => reset()}
 							>
 								Tweet
 							</Button>

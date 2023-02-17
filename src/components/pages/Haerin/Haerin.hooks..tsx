@@ -3,13 +3,16 @@ import {
 	collection,
 	deleteDoc,
 	doc,
+	DocumentData,
 	getDocs,
+	limit,
 	orderBy,
 	query,
+	startAfter,
 	where,
 } from 'firebase/firestore'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { set } from 'zod'
 import { db } from '~/firebase/client'
@@ -26,11 +29,14 @@ export const useHaerin = () => {
 
 	const [tweets, setTweets] = useState<TweetData[]>([])
 
-	const getTweets = async () => {
+	const [lastDoc, setLastDoc] = useState<DocumentData | null>(null)
+
+	const getTweets = useCallback(async () => {
 		setIsLoading(true)
+		const myCollectionRef = collection(db, 'haerin')
 		try {
 			const querySnapshot = await getDocs(
-				query(collection(db, 'haerin'), orderBy('createdAt', 'desc')),
+				query(myCollectionRef, orderBy('createdAt', 'desc'), limit(5)),
 			)
 
 			const tweets = querySnapshot.docs.map((doc) => ({
@@ -40,12 +46,44 @@ export const useHaerin = () => {
 				createdAt: doc.data().createdAt.toDate().toLocaleString(),
 			}))
 			setTweets(tweets)
+			setLastDoc(querySnapshot.docs[querySnapshot.docs.length - 1])
 		} catch (e) {
 			alert('つぶやきの取得に失敗しました。')
 		} finally {
 			setIsLoading(false)
 		}
-	}
+	}, [])
+
+	// もっと見るボタンを押した時の処理
+	const loadMore = useCallback(async () => {
+		setIsLoading(true)
+		const myCollectionRef = collection(db, 'haerin')
+
+		try {
+			const querySnapshot = await getDocs(
+				query(
+					myCollectionRef,
+					orderBy('createdAt', 'desc'),
+					startAfter(lastDoc),
+					limit(5),
+				),
+			)
+			const tweets = querySnapshot.docs.map((doc) => ({
+				id: doc.data().id,
+				uid: doc.data().uid,
+				tweet: doc.data().tweet,
+				createdAt: doc.data().createdAt.toDate().toLocaleString(),
+			}))
+			setTweets([...tweets, ...tweets])
+			console.log(tweets)
+
+			setLastDoc(querySnapshot.docs[querySnapshot.docs.length - 1])
+		} catch (e) {
+			alert('つぶやきの取得に失敗しました。')
+		} finally {
+			setIsLoading(false)
+		}
+	}, [lastDoc])
 
 	// つぶやき投稿（add)
 	const onSubmit: SubmitHandler<TweetInputSchema> = async (data) => {
@@ -83,13 +121,14 @@ export const useHaerin = () => {
 
 	useEffect(() => {
 		getTweets()
-	}, [])
+	}, [getTweets])
 
 	return {
 		onSubmit,
 		handleShow,
 		deleteTweet,
 		getTweets,
+		loadMore,
 		tweets,
 		isLoading,
 		isShowPassword,

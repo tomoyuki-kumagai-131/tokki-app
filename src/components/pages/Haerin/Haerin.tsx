@@ -30,12 +30,14 @@ type Props = {
 	tweets: TweetData[]
 	user: UserType | undefined
 	isLoading?: boolean
+	loadMore: () => void
 }
 
 export const Component: React.FC<Props> = ({
 	deleteTweet,
 	tweets,
 	user,
+	loadMore,
 	isLoading,
 }) => {
 	return (
@@ -117,13 +119,19 @@ export const Component: React.FC<Props> = ({
 					</Box>
 				</Card>
 			</Box>
+			<Box mb={4} textAlign="center">
+				<Button onClick={loadMore} disabled={isLoading} isLoading={isLoading}>
+					もっと見る
+				</Button>
+			</Box>
 		</Box>
 		// </SideMenu>
 	)
 }
 
 export const Haerin = () => {
-	const { deleteTweet, tweets, isLoading, user, getTweets } = useHaerin()
+	const { deleteTweet, tweets, isLoading, user, getTweets, loadMore } =
+		useHaerin()
 
 	return (
 		<Component
@@ -131,6 +139,7 @@ export const Haerin = () => {
 			isLoading={isLoading}
 			user={user}
 			tweets={tweets}
+			loadMore={loadMore}
 		/>
 	)
 }
