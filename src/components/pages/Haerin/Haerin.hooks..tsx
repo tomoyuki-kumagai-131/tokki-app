@@ -113,7 +113,7 @@ export const useHaerin = () => {
 					title: ' 投稿しました',
 					description: "We've created your tweet.",
 					status: 'success',
-					duration: 9000,
+					duration: 1500,
 					position: 'top',
 					isClosable: true,
 				})
