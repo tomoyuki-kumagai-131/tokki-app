@@ -37,13 +37,37 @@ export const useHaerin = () => {
 
 	const { reset } = useForm()
 
-	// ツイートを5件取得する
+	// 新しい順にツイートを5件取得する
 	const getTweets = useCallback(async () => {
 		setIsLoading(true)
 		const myCollectionRef = collection(db, 'haerin')
 		try {
 			const querySnapshot = await getDocs(
 				query(myCollectionRef, orderBy('createdAt', 'desc'), limit(5)),
+			)
+
+			const tweets = querySnapshot.docs.map((doc) => ({
+				id: doc.data().id,
+				uid: doc.data().uid,
+				tweet: doc.data().tweet,
+				createdAt: doc.data().createdAt.toDate().toLocaleString(),
+			}))
+			setTweets(tweets)
+			setLastDoc(querySnapshot.docs[querySnapshot.docs.length - 1])
+		} catch (e) {
+			alert('つぶやきの取得に失敗しました。')
+		} finally {
+			setIsLoading(false)
+		}
+	}, [])
+
+	// 古い順にツイートを5件取得する
+	const getOldTweets = useCallback(async () => {
+		setIsLoading(true)
+		const myCollectionRef = collection(db, 'haerin')
+		try {
+			const querySnapshot = await getDocs(
+				query(myCollectionRef, orderBy('createdAt', 'asc'), limit(5)),
 			)
 
 			const tweets = querySnapshot.docs.map((doc) => ({
@@ -154,6 +178,7 @@ export const useHaerin = () => {
 		handleShow,
 		deleteTweet,
 		getTweets,
+		getOldTweets,
 		loadMore,
 		tweets,
 		isLoading,

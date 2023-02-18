@@ -9,6 +9,7 @@ import {
 	Input,
 	InputGroup,
 	InputLeftElement,
+	Select,
 	Skeleton,
 	SkeletonText,
 } from '@chakra-ui/react'
@@ -31,17 +32,36 @@ type Props = {
 	user: UserType | undefined
 	isLoading?: boolean
 	loadMore: () => void
+	getTweets: () => void
+	getOldTweets: () => void
 	reset: () => void
 }
 
 export const Component: React.FC<Props> = ({
 	deleteTweet,
+	getTweets,
 	tweets,
 	user,
 	loadMore,
 	reset,
 	isLoading,
+	getOldTweets,
 }) => {
+	const options = [
+		{ label: '新しい順', value: 'newest' },
+		{ label: '古い順', value: 'oldest' },
+	]
+
+	const [sort, setSort] = useState('')
+
+	const handleSortChange = (e: any) => {
+		setSort(e.target.value)
+		if (e.target.value === 'newest') {
+			getTweets()
+		} else {
+			getOldTweets()
+		}
+	}
 	return (
 		// <SideMenu>
 		<Box
@@ -65,6 +85,16 @@ export const Component: React.FC<Props> = ({
 			</Box>
 
 			<TweetInput />
+
+			<Box display="flex" justifyContent="center" mt={4} textAlign="center">
+				<Select w="300px" onChange={handleSortChange} value={sort}>
+					{options.map((option, index) => (
+						<option key={index} value={option.value}>
+							{option.label}
+						</option>
+					))}
+				</Select>
+			</Box>
 
 			<Box display="flex" justifyContent="center">
 				<Card
@@ -140,6 +170,7 @@ export const Haerin = () => {
 		user,
 		getTweets,
 		loadMore,
+		getOldTweets,
 	} = useHaerin()
 	// const [isBottom, setIsBottom] = useState(false)
 	// const [loadingMore, setLoadingMore] = useState(false)
@@ -174,6 +205,8 @@ export const Haerin = () => {
 			isLoading={isLoading}
 			user={user}
 			tweets={tweets}
+			getTweets={getTweets}
+			getOldTweets={getOldTweets}
 			loadMore={loadMore}
 			reset={reset}
 		/>
