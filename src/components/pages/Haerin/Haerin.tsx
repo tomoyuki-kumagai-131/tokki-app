@@ -31,6 +31,7 @@ import React, {
 	useState,
 } from 'react'
 import SideMenu from '~/components/layouts/Layout/SideMenu/SideMenu'
+import { ButtonLoadMore } from '~/components/parts/ButtonLoadMore/ButtonLoadMore'
 
 type Props = {
 	deleteTweet: (id: string) => void
@@ -73,10 +74,7 @@ export const Component: React.FC<Props> = ({
 	)
 
 	return (
-		// <SideMenu>
-		<Box
-		// mr={{ md: 640 }}
-		>
+		<Box>
 			<Box
 				textAlign="center"
 				display="flex"
@@ -162,12 +160,9 @@ export const Component: React.FC<Props> = ({
 				</Card>
 			</Box>
 			<Box mb={4} textAlign="center">
-				<Button onClick={loadMore} disabled={isLoading} isLoading={isLoading}>
-					もっと見る
-				</Button>
+				<ButtonLoadMore loadMore={loadMore} isLoading={isLoading} />
 			</Box>
 		</Box>
-		// </SideMenu>
 	)
 }
 
