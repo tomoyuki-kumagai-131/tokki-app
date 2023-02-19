@@ -27,12 +27,12 @@ export const Forums: React.FC = () => {
 		<Grid
 			display={'flex'}
 			templateColumns="repeat(2, 1fr)"
-			gap={1}
+			gap={4}
 			mx={{ base: 4, md: 16 }}
 			mt={4}
 			textAlign="center"
 		>
-			<Card maxW={400}>
+			<Card maxW={{ base: 200, md: 800 }} w={{ md: 400 }}>
 				<CardHeader>
 					<Heading size="md">Haerin</Heading>
 				</CardHeader>
@@ -66,7 +66,7 @@ export const Forums: React.FC = () => {
 					</Box>
 				</CardFooter>
 			</Card>
-			<Card maxW={400}>
+			<Card maxW={{ base: 200, md: 800 }} w={{ md: 400 }}>
 				<CardHeader>
 					<Heading size="md">Hannni</Heading>
 				</CardHeader>
