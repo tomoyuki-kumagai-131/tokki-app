@@ -23,7 +23,13 @@ import { schema, TweetInputSchema } from '~/varidations/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHeader } from '~/components/layouts/Layout/Header/Header.hooks'
 import { TweetInput } from '~/components/parts/TweetInput'
-import { useEffect, useState } from 'react'
+import React, {
+	ChangeEvent,
+	ChangeEventHandler,
+	useCallback,
+	useEffect,
+	useState,
+} from 'react'
 import SideMenu from '~/components/layouts/Layout/SideMenu/SideMenu'
 
 type Props = {
@@ -54,14 +60,18 @@ export const Component: React.FC<Props> = ({
 
 	const [sort, setSort] = useState('')
 
-	const handleSortChange = (e: any) => {
-		setSort(e.target.value)
-		if (e.target.value === 'newest') {
-			getTweets()
-		} else {
-			getOldTweets()
-		}
-	}
+	const handleSortChange = useCallback(
+		(e: ChangeEvent<HTMLSelectElement>) => {
+			setSort(e.target.value)
+			if (e.target.value === 'newest') {
+				getTweets()
+			} else {
+				getOldTweets()
+			}
+		},
+		[getOldTweets, getTweets],
+	)
+
 	return (
 		// <SideMenu>
 		<Box
