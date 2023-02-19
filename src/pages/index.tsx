@@ -21,9 +21,9 @@ export default function Home() {
 			<Box>
 				{/* <Box bg="gray.50" h="max-full"> */}
 				<Top />
-				<Box pt={12}>
+				{/* <Box pt={12}>
 					<Footer />
-				</Box>
+				</Box> */}
 			</Box>
 		</>
 	)

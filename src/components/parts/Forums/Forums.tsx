@@ -24,8 +24,15 @@ import 'swiper/css'
 
 export const Forums: React.FC = () => {
 	return (
-		<Grid templateColumns="repeat(2, 1fr)" gap={1} mx={4} mt={4}>
-			<Card maxW={200}>
+		<Grid
+			display={'flex'}
+			templateColumns="repeat(2, 1fr)"
+			gap={1}
+			mx={{ base: 4, md: 16 }}
+			mt={4}
+			textAlign="center"
+		>
+			<Card maxW={400}>
 				<CardHeader>
 					<Heading size="md">Haerin</Heading>
 				</CardHeader>
@@ -46,9 +53,9 @@ export const Forums: React.FC = () => {
 						mx={'auto'}
 					>
 						<Button
-							fontWeight={600}
+							fontWeight="bold"
 							color={'white'}
-							bg="pink.100"
+							bg="gray.300"
 							_hover={{
 								bg: 'pink.400',
 								color: 'white',
@@ -59,7 +66,7 @@ export const Forums: React.FC = () => {
 					</Box>
 				</CardFooter>
 			</Card>
-			<Card>
+			<Card maxW={400}>
 				<CardHeader>
 					<Heading size="md">Hannni</Heading>
 				</CardHeader>
@@ -82,13 +89,13 @@ export const Forums: React.FC = () => {
 						<Button
 							fontWeight={600}
 							color={'white'}
-							bg="pink.100"
+							bg="gray.300"
 							_hover={{
 								bg: 'pink.400',
 								color: 'white',
 							}}
 						>
-							<Link href="/members/haerin">Haerin</Link>
+							<Link href="/members/haerin">Hanni</Link>
 						</Button>
 					</Box>
 				</CardFooter>

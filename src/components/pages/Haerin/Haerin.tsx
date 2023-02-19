@@ -156,7 +156,7 @@ export const Component: React.FC<Props> = ({
 					})}
 				</Card>
 			</Box>
-			<Box mb={4} textAlign="center">
+			<Box mt={4} textAlign="center">
 				{/* もっと見る */}
 				<ButtonLoadMore loadMore={loadMore} isLoading={isLoading} />
 			</Box>
