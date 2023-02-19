@@ -107,7 +107,6 @@ export const Component: React.FC<Props> = ({
 			<Box display="flex" justifyContent="center">
 				<Card
 					maxW="md"
-					// bg="pink.50"
 					mt={4}
 					mx={4}
 					mb={4}
@@ -116,50 +115,49 @@ export const Component: React.FC<Props> = ({
 					borderRadius={10}
 					boxShadow="md"
 				>
-					<Box>
-						<SkeletonText
-							mx={2}
-							noOfLines={4}
-							spacing="2"
-							skeletonHeight="2"
-							isLoaded={!isLoading}
-						/>
-						{tweets.map((tweet) => {
-							return (
-								<>
-									<Box
-										bg="white"
-										border="none"
-										p={4}
-										mt={4}
-										mx={4}
-										borderRadius={12}
-										key={tweet.tweet}
-									>
-										<Box>{tweet.tweet}</Box>
-										<Box>
-											{user?.uid === tweet?.uid && (
-												<Box onClick={() => deleteTweet(tweet.id)}>
-													<FaTrashAlt />
-												</Box>
-											)}
-										</Box>
-										<Box display="flex" justifyContent="space-between">
-											<Flex pt={2} fontSize="xs">
-												ID: {user?.uid.slice(0, 8)}...
-											</Flex>
-											<Flex pt={2} fontSize="xs">
-												{tweet.createdAt}
-											</Flex>
-										</Box>
+					<SkeletonText
+						mx={2}
+						noOfLines={4}
+						spacing="2"
+						skeletonHeight="2"
+						isLoaded={!isLoading}
+					/>
+					{tweets.map((tweet) => {
+						return (
+							<>
+								<Box
+									bg="white"
+									border="none"
+									p={4}
+									mt={4}
+									mx={4}
+									borderRadius={12}
+									key={tweet.tweet}
+								>
+									<Box>{tweet.tweet}</Box>
+									<Box>
+										{user?.uid === tweet?.uid && (
+											<Box onClick={() => deleteTweet(tweet.id)}>
+												<FaTrashAlt />
+											</Box>
+										)}
 									</Box>
-								</>
-							)
-						})}
-					</Box>
+									<Box display="flex" justifyContent="space-between">
+										<Flex pt={2} fontSize="xs">
+											ID: {user?.uid.slice(0, 8)}...
+										</Flex>
+										<Flex pt={2} fontSize="xs">
+											{tweet.createdAt}
+										</Flex>
+									</Box>
+								</Box>
+							</>
+						)
+					})}
 				</Card>
 			</Box>
 			<Box mb={4} textAlign="center">
+				{/* もっと見る */}
 				<ButtonLoadMore loadMore={loadMore} isLoading={isLoading} />
 			</Box>
 		</Box>
@@ -171,12 +169,14 @@ export const Haerin = () => {
 		deleteTweet,
 		tweets,
 		isLoading,
-		setIsLoading,
 		user,
 		getTweets,
 		loadMore,
 		getOldTweets,
 	} = useHaerin()
+
+	const { reset } = useForm()
+
 	// const [isBottom, setIsBottom] = useState(false)
 	// const [loadingMore, setLoadingMore] = useState(false)
 
@@ -201,8 +201,6 @@ export const Haerin = () => {
 	// 		window.removeEventListener('scroll', handleScroll)
 	// 	}
 	// }, [loadingMore])
-
-	const { reset } = useForm()
 
 	return (
 		<Component
