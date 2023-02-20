@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import {
 	Box,
 	Button,
@@ -8,9 +9,10 @@ import {
 	Grid,
 	GridItem,
 	Heading,
+	Image,
 	SimpleGrid,
 } from '@chakra-ui/react'
-import Image from 'next/image'
+
 import Link from 'next/link'
 
 const MEMBERS = [
@@ -50,7 +52,6 @@ export const Forums: React.FC = () => {
 	return (
 		<>
 			<Grid
-				// display={'flex'}
 				justifyContent={'center'}
 				alignItems={'center'}
 				gap={4}
@@ -61,18 +62,27 @@ export const Forums: React.FC = () => {
 			>
 				{MEMBERS.map((member, index) => (
 					<GridItem key={index}>
-						<Card maxW={{ base: 200, md: 800 }} w={{ base: 165, md: 240 }}>
+						<Card
+							maxW={{ base: 200, md: 800 }}
+							w={{ base: 165, md: 240 }}
+							h={{ base: 195, md: 240 }}
+						>
 							<CardHeader>
 								<Link href={member.href}>
 									<Heading size="md">{member.name}</Heading>
 								</Link>
 							</CardHeader>
-							<CardBody display="flex" justifyContent={'center'}>
+							<CardBody display="flex" justifyContent={'center'} mt={-8}>
 								<Link href={member.href}>
-									<Image src={member.image} height={100} width={150} alt={''} />
+									<Image
+										borderRadius={20}
+										src={member.image}
+										boxSize="120px"
+										objectFit="cover"
+									/>
 								</Link>
 							</CardBody>
-							<CardFooter textAlign={'right'}>
+							{/* <CardFooter textAlign={'right'}>
 								<Box
 									textAlign={'center'}
 									display="flex"
@@ -91,7 +101,7 @@ export const Forums: React.FC = () => {
 										<Link href={member.href}>{member.name}</Link>
 									</Button>
 								</Box>
-							</CardFooter>
+							</CardFooter> */}
 						</Card>
 					</GridItem>
 				))}
