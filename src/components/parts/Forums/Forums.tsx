@@ -41,11 +41,11 @@ const MEMBERS = [
 		image: '/images/hyein.jpeg',
 		href: '/members/hyein',
 	},
-	{
-		name: 'NewJeans',
-		image: '/images/1.jpg',
-		href: '/members/newjeans',
-	},
+	// {
+	// 	name: 'NewJeans',
+	// 	image: '/images/1.jpg',
+	// 	href: '/members/newjeans',
+	// },
 ]
 
 export const Forums: React.FC = () => {
@@ -65,7 +65,7 @@ export const Forums: React.FC = () => {
 						<Card
 							maxW={{ base: 200, md: 800 }}
 							w={{ base: 165, md: 240 }}
-							h={{ base: 195, md: 240 }}
+							h={{ base: 205, md: 205 }}
 						>
 							<CardHeader>
 								<Link href={member.href}>
@@ -105,6 +105,28 @@ export const Forums: React.FC = () => {
 						</Card>
 					</GridItem>
 				))}
+				<Card
+					display={{ md: 'none' }}
+					maxW={{ base: 200, md: 800 }}
+					w={{ base: 165, md: 240 }}
+					h={{ base: 195, md: 205 }}
+				>
+					<CardHeader>
+						<Link href="/members/newjeans">
+							<Heading size="md">NewJeans</Heading>
+						</Link>
+					</CardHeader>
+					<CardBody display="flex" justifyContent={'center'} mt={-8}>
+						<Link href="/members/newjeans">
+							<Image
+								borderRadius={20}
+								src="/images/1.jpg"
+								boxSize="120px"
+								objectFit="cover"
+							/>
+						</Link>
+					</CardBody>
+				</Card>
 			</Grid>
 		</>
 	)
