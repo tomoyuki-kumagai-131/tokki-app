@@ -122,6 +122,11 @@ export const useHaerin = () => {
 		}
 	}, [getTweets, lastDoc])
 
+	const me = UseAuthContext()
+
+	console.log(me.user?.uid)
+	console.log(user?.uid)
+
 	// つぶやき投稿（add)
 	const onSubmit: SubmitHandler<TweetInputSchema> = useCallback(
 		async (data) => {

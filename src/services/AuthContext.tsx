@@ -32,9 +32,7 @@ export const AuthProvider = ({ children }: AuthProps) => {
 	const value = { user }
 
 	const isAvailableForViewing =
-		router.pathname === '/about' ||
-		router.pathname === '/' ||
-		router.pathname === '/signin'
+		router.pathname === '/' || router.pathname === '/signin'
 
 	useEffect(() => {
 		const authStateChanged = onAuthStateChanged(auth, async (user) => {

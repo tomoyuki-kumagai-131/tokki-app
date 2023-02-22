@@ -1,8 +1,10 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { addDoc, collection } from 'firebase/firestore'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { auth } from '~/firebase/client'
+import { auth, db } from '~/firebase/client'
+import { UseAuthContext } from '~/services/AuthContext'
 import { FormValues, UserData } from '~/types/type'
 
 export const useSignin = () => {
@@ -15,6 +17,7 @@ export const useSignin = () => {
 		criteriaMode: 'all',
 		mode: 'onSubmit',
 	})
+	const { user } = UseAuthContext()
 
 	const router = useRouter()
 
@@ -27,6 +30,13 @@ export const useSignin = () => {
 		setIsLoading(true)
 		try {
 			await createUserWithEmailAndPassword(auth, data.email, data.password)
+			await addDoc(collection(db, 'users'), {
+				id: Math.random().toString(12).substring(2),
+				email: data.email,
+				password: data.password,
+				name: data.name,
+				createdAt: new Date(),
+			})
 			setIsLoading(false)
 			router.push('/')
 		} catch (e) {

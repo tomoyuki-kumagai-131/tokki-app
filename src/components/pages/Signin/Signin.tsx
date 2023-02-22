@@ -18,7 +18,7 @@ import {
 } from 'react-hook-form'
 import { FormValues, UserData } from '~/types/type'
 import { useSignin } from './Signin.hooks'
-import { IconAt, IconLock, IconMan } from '@tabler/icons'
+import { IconAt, IconLock, IconMan, IconUser } from '@tabler/icons'
 import { Header } from '~/components/layouts/Layout/Header'
 import Link from 'next/link'
 import { EyeSlash } from '~/components/parts/Icon/icons/linear/EyeSlash'
@@ -92,6 +92,23 @@ export const Component: React.FC<Props> = ({
 								{isShowPassword ? <EyeSlash /> : <Eye />}
 								{/* </Button> */}
 							</InputRightElement>
+						</InputGroup>
+					</Box>
+					<Box mt={4}>
+						<FormLabel>名前</FormLabel>
+						<InputGroup>
+							<InputLeftElement
+								pointerEvents="none"
+								color="gray.300"
+								children={<IconUser fontSize="sm" />}
+							/>
+							<Input
+								id="name"
+								type="text"
+								{...register('name', {
+									required: true,
+								})}
+							/>
 						</InputGroup>
 					</Box>
 					<Box mb={8} mt={8} textAlign="center">

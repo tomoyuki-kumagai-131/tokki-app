@@ -2,35 +2,21 @@
 /* eslint-disable react/no-children-prop */
 import {
 	Box,
-	Button,
 	Card,
 	Flex,
 	Image,
-	Input,
-	InputGroup,
-	InputLeftElement,
 	Select,
 	Skeleton,
 	SkeletonText,
 } from '@chakra-ui/react'
-import { Header } from '~/components/layouts/Layout/Header'
+
 import { useHaerin } from './Haerin.hooks.'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { TweetData } from '~/types/type'
 import { UserType } from '~/services/AuthContext'
 import { FaTrashAlt } from 'react-icons/fa'
-import { schema, TweetInputSchema } from '~/varidations/schema'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useHeader } from '~/components/layouts/Layout/Header/Header.hooks'
 import { TweetInput } from '~/components/parts/TweetInput'
-import React, {
-	ChangeEvent,
-	ChangeEventHandler,
-	useCallback,
-	useEffect,
-	useState,
-} from 'react'
-import SideMenu from '~/components/layouts/Layout/SideMenu/SideMenu'
+import React, { ChangeEvent, useCallback, useState } from 'react'
 import { ButtonLoadMore } from '~/components/parts/ButtonLoadMore/ButtonLoadMore'
 
 type Props = {
@@ -92,7 +78,7 @@ export const Component: React.FC<Props> = ({
 				</Box>
 			</Box>
 
-			<TweetInput />
+			<TweetInput reset={reset} />
 
 			<Box display="flex" justifyContent="center" mt={4} textAlign="center">
 				<Select w="300px" onChange={handleSortChange} value={sort}>
@@ -134,17 +120,19 @@ export const Component: React.FC<Props> = ({
 									borderRadius={12}
 									key={tweet.tweet}
 								>
-									<Box>{tweet.tweet}</Box>
-									<Box>
-										{user?.uid === tweet?.uid && (
-											<Box onClick={() => deleteTweet(tweet.id)}>
-												<FaTrashAlt />
-											</Box>
-										)}
-									</Box>
+									<Flex justifyContent={'space-between'}>
+										<Flex>{tweet.tweet}</Flex>
+										<Flex>
+											{user?.uid === tweet?.uid && (
+												<Box onClick={() => deleteTweet(tweet.id)}>
+													<FaTrashAlt />
+												</Box>
+											)}
+										</Flex>
+									</Flex>
 									<Box display="flex" justifyContent="space-between">
 										<Flex pt={2} fontSize="xs">
-											ID: {user?.uid.slice(0, 8)}...
+											ID: {tweet.uid.slice(0, 8)}...
 										</Flex>
 										<Flex pt={2} fontSize="xs">
 											{tweet.createdAt}

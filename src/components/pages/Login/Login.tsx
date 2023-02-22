@@ -90,6 +90,7 @@ export const Component: React.FC<Props> = ({
 							</InputRightElement>
 						</InputGroup>
 					</Box>
+
 					<Box mb={8} mt={8} textAlign="center">
 						<Button isLoading={isLoading} type="submit">
 							ログイン

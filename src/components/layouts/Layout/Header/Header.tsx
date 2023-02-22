@@ -19,7 +19,7 @@ export const Header: React.FC = () => {
 	const { user, handleLogout } = useHeader()
 
 	return (
-		<Box position="sticky">
+		<Box position="sticky" zIndex={100}>
 			<Box display="flex" alignItems="center" justifyContent="center">
 				<Flex
 					justify="space-between"
@@ -100,10 +100,12 @@ export const Header: React.FC = () => {
 								管理ページマニュアル
 							</MenuItem>
 						</MenuGroup> */}
-									<MenuGroup title="ヘルプ" paddingTop={2}>
-										<MenuItem pl="4" fontSize="sm">
-											お問い合わせ
-										</MenuItem>
+									<MenuGroup title="マイページ" paddingTop={2}>
+										<Link href="/mypage">
+											<MenuItem pl="4" fontSize="sm">
+												MyPage
+											</MenuItem>
+										</Link>
 									</MenuGroup>
 									<Divider />
 									<Box

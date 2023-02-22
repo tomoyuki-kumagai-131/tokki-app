@@ -44,8 +44,12 @@ export const Component = ({ onSubmit, isLoading, inputRef }: Props) => {
 					pt={4}
 				>
 					<form onSubmit={handleSubmit(onSubmit)}>
-						<Box w={{ base: 310, md: 450 }}>
-							<InputGroup ml={{ base: 4, md: 4 }} mr={{ base: 4, md: 4 }}>
+						<Box w={{ base: 310, md: 450 }} zIndex={0}>
+							<InputGroup
+								ml={{ base: 4, md: 4 }}
+								mr={{ base: 4, md: 4 }}
+								zIndex={0}
+							>
 								<InputLeftElement
 									pointerEvents="none"
 									color="gray.300"
