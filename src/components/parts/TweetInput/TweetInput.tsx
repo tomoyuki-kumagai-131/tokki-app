@@ -12,7 +12,12 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { IconClearAll, IconClearFormatting } from '@tabler/icons'
 import { MutableRefObject, useRef } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import {
+	FieldValues,
+	SubmitHandler,
+	useForm,
+	UseFormReset,
+} from 'react-hook-form'
 import { useHaerin } from '~/components/pages/Haerin/Haerin.hooks.'
 import { schema, TweetInputSchema } from '~/varidations/schema'
 import { Star } from '../Icon/icons/bold/Star'

@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 
 import { useHaerin } from './Haerin.hooks.'
-import { useForm } from 'react-hook-form'
+import { FieldValue, FieldValues, useForm, UseFormReset } from 'react-hook-form'
 import { TweetData } from '~/types/type'
 import { UserType } from '~/services/AuthContext'
 import { FaTrashAlt } from 'react-icons/fa'
@@ -27,7 +27,6 @@ type Props = {
 	loadMore: () => void
 	getTweets: () => void
 	getOldTweets: () => void
-	reset: () => void
 }
 
 export const Component: React.FC<Props> = ({
@@ -36,7 +35,6 @@ export const Component: React.FC<Props> = ({
 	tweets,
 	user,
 	loadMore,
-	reset,
 	isLoading,
 	getOldTweets,
 }) => {
@@ -78,7 +76,7 @@ export const Component: React.FC<Props> = ({
 				</Box>
 			</Box>
 
-			<TweetInput reset={reset} />
+			<TweetInput />
 
 			<Box display="flex" justifyContent="center" mt={4} textAlign="center">
 				<Select w="300px" onChange={handleSortChange} value={sort}>

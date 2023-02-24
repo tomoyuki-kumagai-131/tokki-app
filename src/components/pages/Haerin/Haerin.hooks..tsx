@@ -35,8 +35,6 @@ export const useHaerin = () => {
 
 	const toast = useToast()
 
-	const { reset } = useForm()
-
 	// 新しい順にツイートを5件取得する
 	const getTweets = useCallback(async () => {
 		setIsLoading(true)
