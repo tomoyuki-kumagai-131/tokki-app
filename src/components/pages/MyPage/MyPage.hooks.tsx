@@ -1,6 +1,12 @@
-import { collection, getDocs, query, where } from 'firebase/firestore'
+import {
+	collection,
+	DocumentData,
+	getDocs,
+	query,
+	where,
+} from 'firebase/firestore'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { SetStateAction, useCallback, useEffect, useState } from 'react'
 import { auth, db } from '~/firebase/client'
 import { UseAuthContext } from '~/services/AuthContext'
 
@@ -11,7 +17,7 @@ export const useMyPage = () => {
 
 	const [isLoading, setIsLoading] = useState(false)
 
-	const [me, setMe] = useState('')
+	const [me, setMe] = useState<DocumentData>({})
 
 	// 新しい順にツイートを5件取得する
 	const getUser = useCallback(async () => {
@@ -38,7 +44,7 @@ export const useMyPage = () => {
 		} finally {
 			setIsLoading(false)
 		}
-	}, [])
+	}, [user?.email])
 
 	const handleLogout = () => {
 		auth.signOut()
