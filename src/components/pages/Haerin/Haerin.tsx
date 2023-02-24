@@ -161,8 +161,6 @@ export const Haerin = () => {
 		getOldTweets,
 	} = useHaerin()
 
-	const { reset } = useForm()
-
 	// const [isBottom, setIsBottom] = useState(false)
 	// const [loadingMore, setLoadingMore] = useState(false)
 
@@ -197,7 +195,6 @@ export const Haerin = () => {
 			getTweets={getTweets}
 			getOldTweets={getOldTweets}
 			loadMore={loadMore}
-			reset={reset}
 		/>
 	)
 }
