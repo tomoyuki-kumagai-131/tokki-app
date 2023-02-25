@@ -1,13 +1,13 @@
 /* eslint-disable react/no-children-prop */
 import { Box, Button, Card } from '@chakra-ui/react'
+import { DocumentData } from 'firebase/firestore'
 import { UserType } from '~/services/AuthContext'
-import { UserData } from '~/types/type'
 import { useMyPage } from './MyPage.hooks'
 
 type Props = {
 	user: UserType | undefined
 	handleLogout: () => void
-	me: UserData | null
+	me: DocumentData
 }
 
 export const Component: React.FC<Props> = ({ user, me, handleLogout }) => (
