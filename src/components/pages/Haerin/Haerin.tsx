@@ -110,6 +110,7 @@ export const Component: React.FC<Props> = ({
 						return (
 							<>
 								<Box
+									display={isLoading ? 'none' : 'block'}
 									bg="white"
 									border="none"
 									p={4}
