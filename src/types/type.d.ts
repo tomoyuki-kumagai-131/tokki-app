@@ -15,4 +15,5 @@ export type TweetData = {
 	uid: string
 	tweet: string
 	createdAt: string
+	isFavorite: boolean
 }

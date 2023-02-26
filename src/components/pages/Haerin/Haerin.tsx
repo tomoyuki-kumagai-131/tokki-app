@@ -14,10 +14,13 @@ import { useHaerin } from './Haerin.hooks.'
 import { FieldValue, FieldValues, useForm, UseFormReset } from 'react-hook-form'
 import { TweetData } from '~/types/type'
 import { UserType } from '~/services/AuthContext'
-import { FaTrashAlt } from 'react-icons/fa'
+import { FaHeart, FaTrashAlt } from 'react-icons/fa'
 import { TweetInput } from '~/components/parts/TweetInput'
 import React, { ChangeEvent, useCallback, useState } from 'react'
 import { ButtonLoadMore } from '~/components/parts/ButtonLoadMore/ButtonLoadMore'
+import { Heart as HeartFull } from '~/components/parts/Icon/Emoticons/Heart'
+import { HeartFace } from '~/components/parts/Icon/Emoticons/HeartFace'
+import { Heart } from '~/components/parts/Icon/icons/linear/Heart'
 
 type Props = {
 	deleteTweet: (id: string) => void
@@ -27,6 +30,7 @@ type Props = {
 	loadMore: () => void
 	getTweets: () => void
 	getOldTweets: () => void
+	handleFavorite: (id: string) => void
 }
 
 export const Component: React.FC<Props> = ({
@@ -37,6 +41,7 @@ export const Component: React.FC<Props> = ({
 	loadMore,
 	isLoading,
 	getOldTweets,
+	handleFavorite,
 }) => {
 	const options = [
 		{ label: '新しい順', value: 'newest' },
@@ -106,6 +111,7 @@ export const Component: React.FC<Props> = ({
 						skeletonHeight="2"
 						isLoaded={!isLoading}
 					/>
+					{}
 					{tweets.map((tweet) => {
 						return (
 							<>
@@ -121,6 +127,7 @@ export const Component: React.FC<Props> = ({
 								>
 									<Flex justifyContent={'space-between'}>
 										<Flex>{tweet.tweet}</Flex>
+
 										<Flex>
 											{user?.uid === tweet?.uid && (
 												<Box onClick={() => deleteTweet(tweet.id)}>
@@ -135,6 +142,17 @@ export const Component: React.FC<Props> = ({
 										</Flex>
 										<Flex pt={2} fontSize="xs">
 											{tweet.createdAt}
+										</Flex>
+										<Flex>
+											{tweet.isFavorite == true ? (
+												<Box onClick={() => handleFavorite(tweet.id)}>
+													<HeartFull />
+												</Box>
+											) : (
+												<Box onClick={() => handleFavorite(tweet.id)}>
+													<Heart />
+												</Box>
+											)}
 										</Flex>
 									</Box>
 								</Box>
@@ -153,13 +171,14 @@ export const Component: React.FC<Props> = ({
 
 export const Haerin = () => {
 	const {
+		user,
 		deleteTweet,
 		tweets,
 		isLoading,
-		user,
 		getTweets,
 		loadMore,
 		getOldTweets,
+		handleFavorite,
 	} = useHaerin()
 
 	// const [isBottom, setIsBottom] = useState(false)
@@ -196,6 +215,7 @@ export const Haerin = () => {
 			getTweets={getTweets}
 			getOldTweets={getOldTweets}
 			loadMore={loadMore}
+			handleFavorite={handleFavorite}
 		/>
 	)
 }

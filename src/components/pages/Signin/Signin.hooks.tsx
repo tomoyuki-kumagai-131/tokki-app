@@ -30,12 +30,16 @@ export const useSignin = () => {
 		setIsLoading(true)
 		try {
 			await createUserWithEmailAndPassword(auth, data.email, data.password)
+			const user = auth.currentUser
+			console.log(user)
 			await addDoc(collection(db, 'users'), {
+				uid: user?.uid,
 				id: Math.random().toString(12).substring(2),
 				email: data.email,
 				password: data.password,
 				name: data.name,
 				createdAt: new Date(),
+				favorites: [],
 			})
 			setIsLoading(false)
 			router.push('/')
